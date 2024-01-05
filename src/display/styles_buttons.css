@@ -1,0 +1,25 @@
+#root {
+  padding: 0px !important;
+  margin: 0px !important;
+  /* border: 10px solid red; */
+}
+
+.wrap {
+  /* pading to the sides only */
+  /* padding: 10px 21px 13px 24px; */
+  display: flex;
+}
+
+.wrap > div {
+  /* pading to the sides only */
+  border: 1px solid #000;
+  /* padding is top-right-bott-left */
+  padding: 5px 20px 5px 20px;
+  display: flex;
+  height: 40px;
+  align-items: center;
+}
+
+p {
+  margin-bottom: 0px !important;
+}

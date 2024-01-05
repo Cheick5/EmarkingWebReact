@@ -1,0 +1,51 @@
+.criterion_wrapper {
+  display: flex;
+  height: 83px;
+  /* border at buttom */
+  border-bottom: 1px solid black;
+}
+
+.criterion {
+  display: flex;
+  font-weight: bold;
+  width: 150px;
+  font-size: 12px;
+  line-height: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  flex-direction: column;
+  padding: 1px;
+  padding-left: 10px;
+}
+.criterion_name {
+  align-self: flex-start;
+}
+
+.level {
+  display: flex;
+  flex-direction: column;
+  /* flex-grow: 1; */
+  border: 1px solid #c0d6f5;
+  border-radius: 5px;
+  background-color: #ffffff;
+  font-size: 12px;
+  padding: 0px 5px 1px 5px;
+  min-width: 75px;
+  min-height: 75px;
+}
+.level_name {
+  text-align: left;
+  height: 80%;
+}
+.level_score {
+  text-align: right;
+}
+
+.level_selected {
+  background-color: #d0ffd0;
+  font-weight: bold;
+}
+
+.criterion_wrapper > div {
+  /* width: 5vw; */
+  margin: 5px;
+}
