@@ -1,6 +1,8 @@
 // import React from "react";
 import "./styles_rubric.css";
 import Level from "./level";
+import GeneralFeedback from "./General_feedback";
+import Resumen from "./Resumen";
 
 const Rubric = () => {
   return (
@@ -9,6 +11,8 @@ const Rubric = () => {
       <Level numberOfDivs={3} />
       <Level numberOfDivs={3} />
       <Level numberOfDivs={3} />
+      <GeneralFeedback />
+      <Resumen />
     </div>
   );
 };

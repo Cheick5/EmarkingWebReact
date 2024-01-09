@@ -20,6 +20,21 @@
   align-items: center;
 }
 
+.wrap > div:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
 p {
   margin-bottom: 0px !important;
+}
+
+.nav-bar {
+  background-color: white;
+  border-bottom: 1px solid #000;
+}
+
+.button_selected {
+  background-color: #d0ffd0;
+  font-weight: bold;
 }
