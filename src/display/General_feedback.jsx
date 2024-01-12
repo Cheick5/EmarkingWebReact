@@ -15,6 +15,8 @@ const GeneralFeedback = () => {
           resize: "both",
           width: "500px",
           height: "190px",
+          backgroundColor: "white",
+          color: "black",
         }}
         name="height"
       />

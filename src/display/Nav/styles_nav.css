@@ -32,9 +32,36 @@ p {
 .nav-bar {
   background-color: white;
   border-bottom: 1px solid #000;
+  /* position: fixed; */
 }
 
 .button_selected {
   background-color: #d0ffd0;
   font-weight: bold;
+}
+
+.notaActual {
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 36px;
+  margin-right: 60px;
+  align-self: center;
+  align-self: center;
+}
+
+.TopDiv {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+}
+
+.Salida {
+  font-size: 32px;
+  display: flex;
+  align-self: center;
+  /* min-width: 50px; */
+  justify-content: space-between;
+}
+.BotonSalida {
+  padding: 0px 10px;
 }

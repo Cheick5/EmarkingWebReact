@@ -4,13 +4,18 @@ import "./styles_level.css";
 
 import PropTypes from "prop-types";
 
-const Criterion = ({ numberOfDivs }) => {
+const Criterion = ({ criterion }) => {
   const [selected, setSelected] = useState("");
+  const [rubric, setRubric] = useState({ 1: {}, 2: {} });
 
   Criterion.propTypes = {
-    numberOfDivs: PropTypes.number.isRequired,
+    criterion: PropTypes.object.isRequired,
   };
 
+  console.log("criterion");
+  console.log(criterion);
+  console.log(Object.keys(criterion.levels));
+  const numberOfDivs = Object.keys(criterion.levels).length;
   const renderDivs = (numberOfDivs) => {
     const divs = [];
     for (let i = 0; i < numberOfDivs; i++) {

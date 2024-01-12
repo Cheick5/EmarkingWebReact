@@ -1,30 +1,44 @@
-import React, { useState } from "react";
+import { useEffect, useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import { Context } from "./Body.jsx";
 
 const AjaxRequest = ({ ids, action }) => {
   AjaxRequest.propTypes = {
     action: PropTypes.string.isRequired,
+    ids: PropTypes.number.isRequired,
   };
 
-  const [response, setResponse] = useState(null);
-  const emarking = "https://moodlecloud.uai.cl/mod/emarking/ajax/a.php";
+  const [json, setJson] = useContext(Context);
+  const emarking = "http://localhost/mod/emarking/ajax/placeholder.php";
 
-  axios
-    .get(
-      emarking +
-        "?ids=" +
-        ids +
-        "&action=" +
-        action +
-        "&callback=__gwt_jsonp__.P10.onSuccess"
-    )
-    .then((response) => {
-      // console.log(response);
-      console.log(response.data);
-    });
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("useEffect");
+      try {
+        await axios
+          .get(emarking + "?ids=" + ids + "&action=" + action)
+          .then((response) => {
+            console.log("response of ajaxrequest");
+            console.log(response);
+            setJson(response);
+          });
+      } catch (error) {
+        console.log("Error en axios!");
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [ids, action, emarking, setJson]); // Add ids and action to the dependency array
 
-  return { response };
+  // Move console.log outside of useEffect
+  console.log(json);
+
+  return (
+    <div>
+      <div></div>
+    </div>
+  );
 };
 
 export default AjaxRequest;
