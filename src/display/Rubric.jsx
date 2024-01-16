@@ -7,20 +7,20 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "./Body.jsx";
 
 const Rubric = () => {
-  const [json, setJson] = useContext(Context);
+  const [submission, setSubmission] = useContext(Context);
   const [rubric, setRubric] = useState({ 1: {}, 2: {} });
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    if (json != null) {
+    if (submission != null) {
       try {
-        setRubric(json.data.values.rubric);
+        setRubric(submission.data.values.rubric);
       } catch (error) {
         console.log(error);
       } finally {
         setLoading(false);
       }
     }
-  }, [json, rubric]);
+  }, [submission, rubric]);
 
   if (loading) {
     return <p>Loading...</p>;

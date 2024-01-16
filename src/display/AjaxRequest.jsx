@@ -9,7 +9,7 @@ const AjaxRequest = ({ ids, action }) => {
     ids: PropTypes.number.isRequired,
   };
 
-  const [json, setJson] = useContext(Context);
+  const [submission, setSubmission] = useContext(Context);
   const emarking = "http://localhost/mod/emarking/ajax/placeholder.php";
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const AjaxRequest = ({ ids, action }) => {
           .then((response) => {
             console.log("response of ajaxrequest");
             console.log(response);
-            setJson(response);
+            setSubmission(response);
           });
       } catch (error) {
         console.log("Error en axios!");
@@ -29,10 +29,10 @@ const AjaxRequest = ({ ids, action }) => {
       }
     };
     fetchData();
-  }, [ids, action, emarking, setJson]); // Add ids and action to the dependency array
+  }, [ids, action, emarking, setSubmission]); // Add ids and action to the dependency array
 
   // Move console.log outside of useEffect
-  console.log(json);
+  console.log(submission);
 
   return (
     <div>

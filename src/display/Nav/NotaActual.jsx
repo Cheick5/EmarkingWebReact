@@ -4,13 +4,13 @@ import { Context } from "../Body.jsx";
 import "./styles_nav.css";
 
 const NotaActual = () => {
-  const [json, setJson] = useContext(Context);
+  const [submission, setSubmission] = useContext(Context);
   const [nota, setNota] = useState("null");
   useEffect(() => {
-    if (json != null) {
-      setNota(json.data.values.finalgrade);
+    if (submission != null) {
+      setNota(submission.data.values.finalgrade);
     }
-  }, [json, nota]);
+  }, [submission, nota]);
   return <div className="notaActual">{nota}</div>;
 };
 

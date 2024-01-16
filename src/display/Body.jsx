@@ -11,34 +11,49 @@ export const Context = React.createContext();
 
 const Body = () => {
   const [json, setJson] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [submission, setSubmission] = useState(null);
+  const [allTabs, setAllTabs] = useState(null);
+  const [loading, setLoading] = useState([true, true]);
   const emarking = "http://localhost/mod/emarking/ajax/killingmyself.php";
   const ids = 203;
-  const action = "getsubmission";
+  // const action = "getsubmission";
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await axios
-          .get(emarking + "?ids=" + ids + "&action=" + action)
-          .then((response) => {
-            setJson(response);
-          });
-      } catch (error) {
-        console.error("Error fetching data:");
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
+    try {
+      getJson("getsubmission", 0);
+      getJson("getalltabs", 1);
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
-  if (loading) {
+  const getJson = async (action, turn) => {
+    try {
+      await axios
+        .get(emarking + "?ids=" + ids + "&action=" + action)
+        .then((response) => {
+          if (turn === 0) {
+            setSubmission(response);
+          }
+          if (turn === 1) {
+            setAllTabs(response);
+          }
+        });
+    } catch (error) {
+      console.error("Error fetching data:");
+      console.error(error);
+    } finally {
+      loading[turn] = false;
+    }
+  };
+
+  if (loading[0] || loading[1]) {
     return <p>Loading...</p>; // This single loading is the goat of the code
   }
   return (
     <div>
-      <Context.Provider value={[json, setJson]}>
+      <Context.Provider
+        value={[submission, setSubmission, allTabs, setAllTabs]}
+      >
         {/* <AjaxRequest
           ids={203}
           action="getsubmission"
