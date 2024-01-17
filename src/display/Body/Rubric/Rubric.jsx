@@ -1,10 +1,10 @@
 // import React from "react";
-import "./styles_rubric.css";
-import Level from "./level";
-import GeneralFeedback from "./General_feedback";
-import Resumen from "./Resumen";
+import "../../Styles/styles_rubric.css";
+import Level from "./Levels/Level.jsx";
+import GeneralFeedback from "./General_feedback.jsx";
+import Resumen from "./Resumen.jsx";
 import React, { useContext, useState, useEffect } from "react";
-import { Context } from "./Body.jsx";
+import { Context } from "../Body.jsx";
 
 const Rubric = () => {
   const [submission, setSubmission] = useContext(Context);

@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import { Context } from "./Body.jsx";
+import { Context } from "./Body/Body.jsx";
 
 const AjaxRequest = ({ ids, action }) => {
   AjaxRequest.propTypes = {

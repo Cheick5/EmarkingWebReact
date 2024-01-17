@@ -1,11 +1,12 @@
 // import React from "react";
-import Rubric from "./Rubric.jsx";
+import Rubric from "./Rubric/Rubric.jsx";
 import Photos from "./Photos.jsx";
 
-import "./styles_body.css";
-import AjaxRequest from "./AjaxRequest.jsx";
+// import "./styles_body.css";
+import "../Styles/styles_body.css";
+import AjaxRequest from "../AjaxRequest.jsx";
 import React, { useState, useEffect } from "react";
-import TopDiv from "./Nav/TopDiv.jsx";
+import TopDiv from "../Nav/TopDiv.jsx";
 import axios from "axios";
 export const Context = React.createContext();
 
@@ -14,7 +15,7 @@ const Body = () => {
   const [submission, setSubmission] = useState(null);
   const [allTabs, setAllTabs] = useState(null);
   const [loading, setLoading] = useState([true, true]);
-  const emarking = "http://localhost/mod/emarking/ajax/a.php";
+  const emarking = "http://localhost/mod/emarking/ajax/killingmyself.php";
   const ids = 203;
   // const action = "getsubmission";
   useEffect(() => {

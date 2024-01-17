@@ -1,7 +1,7 @@
 // import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLink, faSave } from "@fortawesome/free-solid-svg-icons";
-import "./styles_nav.css";
+import "../Styles/styles_nav.css";
 
 const Salida = () => {
   return (

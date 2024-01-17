@@ -19,7 +19,7 @@ import {
   faCircleInfo,
   faBook,
 } from "@fortawesome/free-solid-svg-icons";
-import "./styles_nav.css";
+import "../Styles/styles_nav.css";
 const Botones = () => {
   const handleDivClick = (id) => {
     const div = document.getElementById(id);

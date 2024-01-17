@@ -1,6 +1,6 @@
-import img from "../assets/194001-190000-1.jpg";
+import img from "../../assets/194001-190000-1.jpg";
 
-import "./styles_photos.css";
+import "../Styles/styles_photos.css";
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "./Body.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext, useState, useEffect } from "react";
-import { Context } from "../Body.jsx";
-import "./styles_nav.css";
+import { Context } from "../Body/Body.jsx";
+import "../Styles/styles_nav.css";
 
 const NotaActual = () => {
   const [submission, setSubmission] = useContext(Context);

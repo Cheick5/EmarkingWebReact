@@ -5,7 +5,7 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import Rubric from "./display/Rubric.jsx";
 // import Photos from "./display/Photos.jsx";
-import Body from "./display/Body.jsx";
+import Body from "./display/Body/Body.jsx";
 import { useState } from "react";
 
 ReactDOM.createRoot(document.getElementById("root")).render(

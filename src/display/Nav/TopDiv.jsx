@@ -2,7 +2,7 @@ import React from "react";
 import Botones from "./Buttons";
 import NotaActual from "./NotaActual";
 import Salida from "./Salida";
-import "./styles_nav.css";
+import "../Styles/styles_nav.css";
 
 const TopDiv = () => {
   return (

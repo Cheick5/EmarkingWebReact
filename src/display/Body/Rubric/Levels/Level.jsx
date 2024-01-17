@@ -1,16 +1,16 @@
 // import React from "react";
 import { useEffect, useState } from "react";
-import "./styles_level.css";
+import "../../../Styles/styles_level.css";
 
 import PropTypes from "prop-types";
 
-const Criterion = ({ criterion }) => {
+const Level = ({ criterion }) => {
   const [selected, setSelected] = useState("?");
   const [score, setScore] = useState(0);
   const [rubric, setRubric] = useState({ 1: {}, 2: {} });
   // const [rubricKeys, setRubricKeys] = useState({ 1: {}, 2: {} });
 
-  Criterion.propTypes = {
+  Level.propTypes = {
     criterion: PropTypes.object.isRequired,
   };
 
@@ -71,4 +71,4 @@ const Criterion = ({ criterion }) => {
   );
 };
 
-export default Criterion;
+export default Level;
