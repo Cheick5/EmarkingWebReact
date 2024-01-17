@@ -14,7 +14,7 @@ const Body = () => {
   const [submission, setSubmission] = useState(null);
   const [allTabs, setAllTabs] = useState(null);
   const [loading, setLoading] = useState([true, true]);
-  const emarking = "http://localhost/mod/emarking/ajax/killingmyself.php";
+  const emarking = "http://localhost/mod/emarking/ajax/a.php";
   const ids = 203;
   // const action = "getsubmission";
   useEffect(() => {

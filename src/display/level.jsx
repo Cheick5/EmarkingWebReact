@@ -35,7 +35,7 @@ const Criterion = ({ criterion }) => {
   // console.log(Object.keys(criterion.levels));
 
   return (
-    <div className="criterion_wrapper">
+    <div id={criterion.id} className="criterion_wrapper">
       <div className="criterion">
         <div className="criterion_name">{criterion.description}</div>
         <div className="criterion_score">

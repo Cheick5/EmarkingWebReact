@@ -8,18 +8,47 @@ import { faMapMarker } from "@fortawesome/free-solid-svg-icons";
 
 const Photos = () => {
   const [submission, setSubmission, allTabs, setAllTabs] = useContext(Context);
-  console.log("alltabs");
-  console.log(allTabs);
+  const [hover, setHover] = useState("");
+  // console.log("alltabs");
+  // console.log(allTabs);
+
+  const handleMouseOver = (e, criterionid) => {
+    e.target.style.cursor = "all-scroll"; // Change cursor to pointer
+    e.target.style.border = "2px dotted black";
+    const divs = document.getElementsByClassName("criterion_wrapper");
+    for (let i = 0; i < divs.length; i++) {
+      if (divs[i].id == criterionid) {
+        divs[i].style.backgroundColor = "orange";
+      }
+    }
+
+    setHover(e.target.id);
+  };
+
+  const handleMouseOut = (e, criterionid) => {
+    setHover("");
+    e.target.style.border = "none";
+    const divs = document.getElementsByClassName("criterion_wrapper");
+    for (let i = 0; i < divs.length; i++) {
+      if (divs[i].id == criterionid) {
+        divs[i].style.backgroundColor = "transparent";
+      }
+    }
+
+    // console.log("sali");
+  };
 
   return (
     <div className="photos">
+      Hovered one: {hover}
       {Object.keys(allTabs.data.values).map((object, index) => (
-        <div key={index}>
+        <div className="photo" key={index}>
           <img key={index} src={allTabs.data.values[object].url} />
           {Object.keys(allTabs.data.values[object].comments).map(
             (object2, index2) => (
               <div
-                key={index2}
+                id={index + "-" + index2}
+                key={object2}
                 className="pins"
                 style={{
                   left: `${
@@ -29,9 +58,23 @@ const Photos = () => {
                     allTabs.data.values[object].comments[index2].posy * 100
                   }%`,
                 }}
+                onMouseOver={(e) =>
+                  handleMouseOver(
+                    e,
+                    allTabs.data.values[object].comments[index2].criterionid
+                  )
+                }
+                onMouseOutCapture={(e) =>
+                  handleMouseOut(
+                    e,
+                    allTabs.data.values[object].comments[index2].criterionid
+                  )
+                }
               >
-                {console.log(allTabs.data.values[object].comments[index2].posx)}
-                <FontAwesomeIcon icon={faMapMarker} />
+                {console.log(allTabs.data.values[object].comments[index2])}
+                <div style={{ pointerEvents: "none" }}>
+                  <FontAwesomeIcon icon={faMapMarker} />
+                </div>
               </div>
             )
           )}
