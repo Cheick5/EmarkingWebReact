@@ -23,7 +23,7 @@ const Level = ({ criterion }) => {
       setScore(levelWithNonZeroMarkerId.score);
     } else {
       // No level with non-zero markerid found
-      console.log("No level with non-zero markerid found"); 
+      console.log("No level with non-zero markerid found");
     }
   }, []);
 

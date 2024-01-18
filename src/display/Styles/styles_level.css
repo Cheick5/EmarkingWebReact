@@ -30,7 +30,9 @@
   font-size: 12px;
   padding: 0px 5px 1px 5px;
   width: 75px;
+  min-width: 75px;
   height: 75px;
+  min-height: 75px;
 }
 .level:hover {
   background-color: #f0f0f0;
