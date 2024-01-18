@@ -5,21 +5,24 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "./Body.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarker } from "@fortawesome/free-solid-svg-icons";
+import AddEditModal from "../AddEdit/AddEditModal.jsx";
 
 const Photos = () => {
   const [submission, setSubmission, allTabs, setAllTabs] = useContext(Context);
   const [hover, setHover] = useState("");
+  const [show, setShow] = useState(false);
+  const [pin, setPin] = useState(null);
 
-  const handleMouseOver = (e, criterionid) => {
+  const handleMouseOver = (e, object) => {
     e.target.style.cursor = "all-scroll"; // Change cursor to pointer
     e.target.style.border = "2px dotted black";
     const divs = document.getElementsByClassName("criterion_wrapper");
     for (let i = 0; i < divs.length; i++) {
-      if (divs[i].id == criterionid) {
+      if (divs[i].id == object.criterionid) {
         divs[i].style.backgroundColor = "orange";
       }
     }
-
+    setPin(object);
     setHover(e.target.id);
   };
 
@@ -34,8 +37,14 @@ const Photos = () => {
     }
   };
 
+  const handleMouseClick = (e, object) => {
+    setShow(true);
+    // setPin(object);
+  };
+
   return (
     <div className="photos">
+      <AddEditModal show={show} setShow={setShow} pin={pin} />
       Hovered one: {hover}
       {Object.keys(allTabs.data.values).map((object, index) => (
         <div className="photo" key={index}>
@@ -57,7 +66,7 @@ const Photos = () => {
                 onMouseOver={(e) =>
                   handleMouseOver(
                     e,
-                    allTabs.data.values[object].comments[index2].criterionid
+                    allTabs.data.values[object].comments[index2]
                   )
                 }
                 onMouseOutCapture={(e) =>
@@ -66,8 +75,13 @@ const Photos = () => {
                     allTabs.data.values[object].comments[index2].criterionid
                   )
                 }
+                onClick={(e) =>
+                  handleMouseClick(
+                    e,
+                    allTabs.data.values[object].comments[index2]
+                  )
+                }
               >
-                {console.log(allTabs.data.values[object].comments[index2])}
                 <div style={{ pointerEvents: "none" }}>
                   <FontAwesomeIcon icon={faMapMarker} />
                 </div>

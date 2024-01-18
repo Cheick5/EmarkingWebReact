@@ -23,7 +23,7 @@ const Level = ({ criterion }) => {
       setScore(levelWithNonZeroMarkerId.score);
     } else {
       // No level with non-zero markerid found
-      console.log("No level with non-zero markerid found"); 
+      console.log("No level with non-zero markerid found");
     }
   }, []);
 
@@ -48,12 +48,9 @@ const Level = ({ criterion }) => {
           }
         >
           {
-            <div
-              className="level_name"
-              dangerouslySetInnerHTML={{
-                __html: criterion.levels[level].description,
-              }}
-            />
+            <div className="level_name">
+              {criterion.levels[level].description.replace(/<[^>]+>/g, "")}
+            </div>
           }
           <div className="level_score">
             {parseInt(criterion.levels[level].score)} pts
