@@ -1,4 +1,4 @@
-![[Level.jsx]]This is responsable for the generation of both [[Criterion]] and [[Levels]] with a MAP in [[Rubric]].
+This is responsable for the generation of both [[Criterion]] and [[Levels]] with a MAP in [[Rubric.jsx]].
 It receives as a parameter in the map the map index and the correspondent [[Criterion]]
 
 ## Level creation

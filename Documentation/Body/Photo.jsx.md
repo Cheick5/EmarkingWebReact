@@ -1,4 +1,3 @@
-![[Photos.jsx]]
 Here we map the images acquired in [[ajaxAllTabs]].
 
 After that, we do a nested loop mapping the [[ajaxAllTabs#Comment|Comment]] in the image and setting the pins to the position in the json.
