@@ -31,9 +31,9 @@ const AddEditModal = ({ show, setShow, pin, photoId }) => {
             "&action=updcomment&cid=" +
             pin.id +
             "&posx=" +
-            pin.posx +
+            pin.posx * parseInt((window.innerWidth / 10) * 6) +
             "&posy=" +
-            pin.posy +
+            pin.posy * parseInt((window.innerWidth / 10) * 8) +
             "&bonus=" +
             bonus +
             "&format=" +
