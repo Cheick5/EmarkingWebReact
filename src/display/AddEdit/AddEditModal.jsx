@@ -7,12 +7,13 @@ import { useContext } from "react";
 import "../Styles/styles_modal.css";
 import { Context } from "../Body/Body.jsx";
 import axios from "axios";
+import { getJson } from "../Body/Functions.jsx";
 
 const AddEditModal = ({ show, setShow, pin, photoId }) => {
   // Your component logic goes here
 
   const [submission, setSubmission, allTabs, setAllTabs] = useContext(Context);
-  const emarking = "http://localhost/mod/emarking/ajax/debug/a2.php";
+  const emarking = "http://localhost/mod/emarking/ajax/a.php";
   const [newLevel, setNewLevel] = useState(null);
   const [comment, setComment] = useState("aaa");
   const [bonus, setBonus] = useState("+0");
@@ -21,13 +22,17 @@ const AddEditModal = ({ show, setShow, pin, photoId }) => {
     setShow(false);
   };
 
-  const handleSave = (ids) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const ids = urlParams.get("id");
+  
+
+  const handleSave = (lol) => {
     try {
       axios
         .get(
           emarking +
             "?ids=" +
-            photoId +
+            ids +
             "&action=updcomment&cid=" +
             pin.id +
             "&posx=" +
@@ -68,7 +73,13 @@ const AddEditModal = ({ show, setShow, pin, photoId }) => {
       console.error("Error fetching data:");
       console.error(error);
     } finally {
-      // loading[turn] = false;
+      try {
+        getJson("getsubmission", 0, setSubmission, setAllTabs);
+        getJson("getalltabs", 1, setSubmission, setAllTabs);
+      } catch (error) {
+        console.log("eroooor");
+        console.log(error);
+      }
     }
 
     setShow(false);
@@ -80,10 +91,7 @@ const AddEditModal = ({ show, setShow, pin, photoId }) => {
 
   return (
     // Your JSX code goes here
-    <div>
-      {console.log(pin)}
-      {console.log(photoId)}
-      <Modal show={show} onHide={handleClose}>
+      <Modal animation = {true} show={show} onHide={handleClose}>
         <Modal.Header className="AddEditHeader">
           <div>Agregar/Editar corrección</div>
           <div>{pin == null ? "" : pin.criteriondesc}</div>
@@ -137,7 +145,6 @@ const AddEditModal = ({ show, setShow, pin, photoId }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
   );
 };
 

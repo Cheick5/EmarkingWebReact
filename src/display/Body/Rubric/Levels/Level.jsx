@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 import "../../../Styles/styles_level.css";
 
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { Context } from "../../Body.jsx";
 
 const Level = ({ criterion }) => {
+
   const [selected, setSelected] = useState("?");
   const [score, setScore] = useState(0);
   const [rubric, setRubric] = useState({ 1: {}, 2: {} });
+  const [submission, setSubmission, allTabs, setAllTabs] = useContext(Context);
 
   Level.propTypes = {
     criterion: PropTypes.object.isRequired,
@@ -25,7 +29,7 @@ const Level = ({ criterion }) => {
       // No level with non-zero markerid found
       console.log("No level with non-zero markerid found");
     }
-  }, []);
+  }, [submission]);
 
   return (
     <div id={criterion.id} className="criterion_wrapper">

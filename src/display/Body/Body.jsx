@@ -9,6 +9,7 @@ import React, { useState, useEffect } from "react";
 import TopDiv from "../Nav/TopDiv.jsx";
 import axios from "axios";
 import AddEditModal from "../AddEdit/AddEditModal.jsx";
+import { getJson } from "./Functions.jsx";
 export const Context = React.createContext();
 
 const Body = () => {
@@ -16,39 +17,19 @@ const Body = () => {
   const [submission, setSubmission] = useState(null);
   const [allTabs, setAllTabs] = useState(null);
   const [loading, setLoading] = useState([true, true]);
-  const emarking = "http://localhost/mod/emarking/ajax/debug/a2.php";
-  const ids = 203;
-  //   const urlParams = new URLSearchParams(window.location.search);
-  // const ids = urlParams.get("id");
+  const emarking = "http://localhost/mod/emarking/ajax/a.php";
+  // const ids = 203;
+    const urlParams = new URLSearchParams(window.location.search);
+  const ids = urlParams.get("id");
   // const action = "getsubmission";
   useEffect(() => {
     try {
-      getJson("getsubmission", 0);
-      getJson("getalltabs", 1);
+      getJson("getsubmission", 0, setSubmission, setAllTabs, loading);
+      getJson("getalltabs", 1, setSubmission, setAllTabs, loading);
     } catch (error) {
       console.log(error);
     }
   }, []);
-
-  const getJson = async (action, turn) => {
-    try {
-      await axios
-        .get(emarking + "?ids=" + ids + "&action=" + action)
-        .then((response) => {
-          if (turn === 0) {
-            setSubmission(response);
-          }
-          if (turn === 1) {
-            setAllTabs(response);
-          }
-        });
-    } catch (error) {
-      console.error("Error fetching data:");
-      console.error(error);
-    } finally {
-      loading[turn] = false;
-    }
-  };
 
   if (loading[0] || loading[1]) {
     return <p>Loading...</p>; // This single loading is the goat of the code

@@ -24,3 +24,14 @@
   width: 70%;
   height: 40%;
 }
+
+
+/* This css is important due to a alleged bug in react bootstrap adding random top tag in the fade animation and a random -280px margin at the modal */
+.modal.fade{
+  top:0% !important;
+}
+
+.modal{
+  margin-left: 0px !important;
+  background-color: transparent !important; 
+}
