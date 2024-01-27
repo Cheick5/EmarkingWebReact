@@ -11,6 +11,7 @@ const Rubric = () => {
   const [rubric, setRubric] = useState({ 1: {}, 2: {} });
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setLoading(true);
     if (submission != null) {
       try {
         setRubric(submission.data.values.rubric);
@@ -20,7 +21,7 @@ const Rubric = () => {
         setLoading(false);
       }
     }
-  }, [submission, rubric]);
+  }, [submission]);
 
   if (loading) {
     return <p>Loading...</p>;

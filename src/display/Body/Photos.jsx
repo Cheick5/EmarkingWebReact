@@ -14,6 +14,10 @@ const Photos = () => {
   const [pin, setPin] = useState(null);
   const [photoId, setPhotoId] = useState(null);
 
+  if(allTabs === null){
+    return <p>AllTabs is null</p>
+  }
+
   return (
     <div className="photos">
       <AddEditModal
@@ -26,7 +30,7 @@ const Photos = () => {
       {/* Hovered one: {hover} */}
       {Object.keys(allTabs.data.values).map((object, index) => (
         <div className="photo" key={index}>
-          <img key={index} src={allTabs.data.values[object].url} />
+          <img key={index} draggable="false" src={allTabs.data.values[object].url} />
           {Object.keys(allTabs.data.values[object].comments).map(
             (object2, index2) => (
               <Pins
