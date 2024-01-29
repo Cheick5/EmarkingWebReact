@@ -9,7 +9,7 @@ import AddEditModal from "../AddEdit/AddEditModal.jsx";
 import Pins from "./Pins.jsx";
 
 const Photos = () => {
-  const [submission, setSubmission, allTabs, setAllTabs] = useContext(Context);
+  const {allTabs} = useContext(Context);
   const [show, setShow] = useState(false);
   const [pin, setPin] = useState(null);
   const [photoId, setPhotoId] = useState(null);
@@ -30,7 +30,8 @@ const Photos = () => {
       {/* Hovered one: {hover} */}
       {Object.keys(allTabs.data.values).map((object, index) => (
         <div className="photo" key={index}>
-          <img key={index} draggable="false" src={allTabs.data.values[object].url} />
+          <img id={index+1} key={index} draggable="false" src={allTabs.data.values[object].url} />
+          {/* The request to addmarks uses the index starting from 1, so we are going to just add 1 to this id */}
           {Object.keys(allTabs.data.values[object].comments).map(
             (object2, index2) => (
               <Pins

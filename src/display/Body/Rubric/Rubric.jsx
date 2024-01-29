@@ -7,7 +7,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../Body.jsx";
 
 const Rubric = () => {
-  const [submission, setSubmission] = useContext(Context);
+  // const [submission, setSubmission] = useContext(Context);
+  const { submission } = useContext(Context);
   const [rubric, setRubric] = useState({ 1: {}, 2: {} });
   const [loading, setLoading] = useState(true);
   useEffect(() => {

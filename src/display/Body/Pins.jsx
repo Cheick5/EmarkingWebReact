@@ -21,7 +21,7 @@ const Pins = ({
   const [hover, setHover] = useState("");
   const [oldPos, setOldPos] = useState({x: 0, y: 0});
   const [newPos, setNewPos] = useState({x: 0, y: 0});
-  const [submission, setSubmission, allTabs, setAllTabs] = useContext(Context);
+const { setSubmission, setAllTabs } = useContext(Context);
 
   const handleMouseOver = (e, object) => {
     e.target.style.cursor = "all-scroll"; // Change cursor to pointer

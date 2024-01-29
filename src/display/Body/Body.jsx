@@ -52,7 +52,7 @@ const Body = () => {
   return (
     <div>
       <Context.Provider
-        value={[submission, setSubmission, allTabs, setAllTabs,loading, setLoading]}
+        value={{submission, setSubmission, allTabs, setAllTabs,loading, setLoading}}
       >
         {/* <AjaxRequest
           ids={203}
