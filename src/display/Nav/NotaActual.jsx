@@ -4,7 +4,7 @@ import { Context } from "../Body/Body.jsx";
 import "../Styles/styles_nav.css";
 
 const NotaActual = () => {
-  const [submission, setSubmission] = useContext(Context);
+  const {submission} = useContext(Context);
   const [nota, setNota] = useState("null");
   useEffect(() => {
     if (submission != null) {

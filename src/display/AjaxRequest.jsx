@@ -9,7 +9,7 @@ const AjaxRequest = ({ ids, action }) => {
     ids: PropTypes.number.isRequired,
   };
 
-  const [submission, setSubmission] = useContext(Context);
+  const {submission, setSubmission} = useContext(Context);
   const emarking = "http://localhost/mod/emarking/ajax/placeholder.php";
 
   useEffect(() => {

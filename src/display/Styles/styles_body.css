@@ -3,3 +3,21 @@
   width: 100vw;
   border: 1px solid #ff0000;
 }
+
+.Loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  /* border: 10px double #47bffc; */
+  border: 10px ridge rgba(71, 191, 252, .6);
+}
+  
+.Spinner{
+  position: absolute;
+  top: 80%;
+  left: 25%;
+  width: 100px; /* Increase the width to make the spinner bigger */
+  height: 100px; /* Increase the height to make the spinner bigger */
+}

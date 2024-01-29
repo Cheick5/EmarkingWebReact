@@ -7,12 +7,13 @@ import { useContext } from "react";
 import "../Styles/styles_modal.css";
 import { Context } from "../Body/Body.jsx";
 import axios from "axios";
-import { getJson } from "../Body/Functions.jsx";
+import { getJson, updateApp } from "../Body/Functions.jsx";
+import { updatePin } from "../Body/Functions.jsx";
 
 const AddEditModal = ({ show, setShow, pin, photoId }) => {
   // Your component logic goes here
 
-  const [submission, setSubmission, allTabs, setAllTabs] = useContext(Context);
+  const {submission,setAllTabs,setSubmission} = useContext(Context);
   const emarking = "http://localhost/mod/emarking/ajax/a.php";
   const [newLevel, setNewLevel] = useState(null);
   const [comment, setComment] = useState("aaa");
@@ -27,61 +28,8 @@ const AddEditModal = ({ show, setShow, pin, photoId }) => {
   
 
   const handleSave = (lol) => {
-    try {
-      axios
-        .get(
-          emarking +
-            "?ids=" +
-            ids +
-            "&action=updcomment&cid=" +
-            pin.id +
-            "&posx=" +
-            pin.posx * parseInt((window.innerWidth / 10) * 6) +
-            "&posy=" +
-            pin.posy * parseInt((window.innerWidth / 10) * 8) +
-            "&bonus=" +
-            bonus +
-            "&format=" +
-            pin.format +
-            "&levelid=" +
-            newLevel +
-            "&regradeid=" +
-            pin.regradeid +
-            "&regradeaccepted=" +
-            pin.regradeaccepted +
-            "&regrademarkercomment=" +
-            pin.regrademarkercomment +
-            "&markerid=" +
-            pin.markerid + //This should be your id!!!
-            "&width=" +
-            pin.width +
-            "&height=" +
-            pin.height +
-            "&comment=" +
-            comment +
-            "&windowswidth=" + //Width an heigth OF THE IMG TAG
-            parseInt((window.innerWidth / 10) * 6) + //60 vw
-            "&windowsheight=" +
-            parseInt((window.innerWidth / 10) * 8) + //80 VW (WIDTH)
-            "&feedback=" +
-            ""
-        )
-        .then((response) => {
-          console.log(response);
-        });
-    } catch (error) {
-      console.error("Error fetching data:");
-      console.error(error);
-    } finally {
-      try {
-        getJson("getsubmission", 0, setSubmission, setAllTabs);
-        getJson("getalltabs", 1, setSubmission, setAllTabs);
-      } catch (error) {
-        console.log("eroooor");
-        console.log(error);
-      }
-    }
-
+    
+    updatePin(pin,newLevel,comment,bonus,setAllTabs,setSubmission);
     setShow(false);
   };
 
