@@ -3,7 +3,7 @@
 
 const GeneralFeedback = () => {
   return (
-    <div style={{ height: "230px", borderBottom: "1px solid red" }}>
+    <div style={{ height: "230px" }}>
       <div>
         Retroalimentación general sobre la evaluación que se mostrará al
         estudiante

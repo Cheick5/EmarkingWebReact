@@ -1,5 +1,5 @@
 .rubric {
-  border: 2px solid rgba(255, 0, 0, 0.2);
+  /* border: 2px solid rgba(255, 0, 0, 0.2); */
   background-color: #eeeeee;
   border-bottom: none;
   /* set div to the far right */
@@ -9,11 +9,13 @@
   display: flex;
   flex-direction: column;
   overflow-x: scroll;
+  box-shadow: 10px 10px 5px lightblue;
+  border-radius: 50px 10px 50px 10px;
 }
 
 .imported_rubric {
   font-weight: bold;
-  background-color: #c0d6f5;
+  background-color: lightblue;
   text-align: left;
   padding: 0% 0% 5% 5%;
   width: 98.5%;

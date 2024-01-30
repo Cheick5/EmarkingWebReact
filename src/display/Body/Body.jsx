@@ -8,7 +8,7 @@ import AjaxRequest from "../AjaxRequest.jsx";
 import React, { useState, useEffect } from "react";
 import TopDiv from "../Nav/TopDiv.jsx";
 import axios from "axios";
-import AddEditModal from "../AddEdit/AddEditModal.jsx";
+import AddEditModal from "../AddEdit/EditModal.jsx";
 import { getJson, updateApp } from "./Functions.jsx";
 import Logo from "./Loading.jsx";
 
@@ -19,14 +19,13 @@ const Body = () => {
   const [submission, setSubmission] = useState(null);
   const [allTabs, setAllTabs] = useState(null);
   const [loading, setLoading] = useState(false);
-  const emarking = "http://localhost/mod/emarking/ajax/a.php";
   // const ids = 203;
-    const urlParams = new URLSearchParams(window.location.search);
+  const urlParams = new URLSearchParams(window.location.search);
   const ids = urlParams.get("id");
   // const action = "getsubmission";
   useEffect(() => {
-    updateApp(setAllTabs,setSubmission);
-  },[]);
+    updateApp(setAllTabs, setSubmission);
+  }, []);
   // useEffect(() => {
   //   console.log("use efect submission alltabs")
   //   if (setSubmission){
@@ -42,8 +41,8 @@ const Body = () => {
   // }
 
   // if(submission == null || allTabs == null){
-  if(submission == null || allTabs == null){
-    return <Logo />
+  if (submission == null || allTabs == null) {
+    return <Logo />;
   }
   // if(allTabs === null){
   //   return <p>AllTabs is null</p>
@@ -52,7 +51,14 @@ const Body = () => {
   return (
     <div>
       <Context.Provider
-        value={{submission, setSubmission, allTabs, setAllTabs,loading, setLoading}}
+        value={{
+          submission,
+          setSubmission,
+          allTabs,
+          setAllTabs,
+          loading,
+          setLoading,
+        }}
       >
         {/* <AjaxRequest
           ids={203}

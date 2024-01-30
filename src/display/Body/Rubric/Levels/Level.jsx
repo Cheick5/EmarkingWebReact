@@ -6,9 +6,8 @@ import PropTypes from "prop-types";
 // import { useContext } from "react";
 // import { Context } from "../../Body.jsx";
 
-const Level = ({ criterion }) => {
-
-  const [selected, setSelected] = useState("?");
+const Level = ({ criterion, setLevelSelected, setCriterionId }) => {
+  // const [selected, setLevelSelected] = useState("?");
   const [score, setScore] = useState(0);
   const [rubric, setRubric] = useState({ 1: {}, 2: {} });
   // const {submission, setSubmission, allTabs, setAllTabs} = useContext(Context);
@@ -17,15 +16,23 @@ const Level = ({ criterion }) => {
     criterion: PropTypes.object.isRequired,
   };
 
+  const handleClick = (e, criterionid) => {
+    if (setLevelSelected != null) {
+      setLevelSelected(e);
+      setCriterionId(criterionid);
+      console.log("e: " + e);
+      console.log(e);
+      console.log("criterionid: " + criterionid);
+    }
+  };
+
   useEffect(() => {
     const levelWithNonZeroMarkerId = Object.values(criterion.levels).find(
       (level) => level.markerid !== 0
     );
-    //   console.log('submission');
-    // console.log(submission);
 
     if (levelWithNonZeroMarkerId) {
-      setSelected(levelWithNonZeroMarkerId);
+      // setLevelSelected(levelWithNonZeroMarkerId);
       setScore(levelWithNonZeroMarkerId.score);
 
       Object.keys(criterion.levels).forEach((level) => {
@@ -33,16 +40,8 @@ const Level = ({ criterion }) => {
 
         if (criterion.levels[level].markerid === 0) {
           divElement.classList.remove("level_selected");
-          // console.log("level not selected");
-          // console.log(divElement);
-          // divElement.style.backgroundColor = "initial"; // Reset style
         } else {
           divElement.classList.add("level_selected");
-          // console.log("level selected");
-          // console.log(divElement);
-          // console.log("id del weno");
-          // console.log(criterion.levels[level].id);
-          // divElement.style.backgroundColor = "red"; // Add style to selected div
         }
       });
     } else {
@@ -64,13 +63,10 @@ const Level = ({ criterion }) => {
       {Object.keys(criterion.levels).map((level, index) => (
         // <div key={index} className="level">
         <div
-          id = {criterion.levels[level].id}
+          id={criterion.levels[level].id}
           key={index}
-          className={
-            criterion.levels[level].markerid == 0
-              ? "level"
-              : "level"
-          }
+          className={"level"}
+          onClick={() => handleClick(criterion.levels[level], criterion.id)}
         >
           {
             <div className="level_name">

@@ -53,6 +53,7 @@ p {
   display: flex;
   justify-content: space-between;
   background-color: white;
+  border-bottom: #c0d6f5 solid 1px;
 }
 
 .Salida {

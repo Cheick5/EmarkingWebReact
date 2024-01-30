@@ -1,7 +1,7 @@
 .box {
   display: flex;
   width: 100vw;
-  border: 1px solid #ff0000;
+  /* border: 1px solid #ff0000; */
 }
 
 .Loading {
@@ -11,10 +11,10 @@
   transform: translate(-50%, -50%);
   background-color: white;
   /* border: 10px double #47bffc; */
-  border: 10px ridge rgba(71, 191, 252, .6);
+  border: 10px ridge rgba(71, 191, 252, 0.6);
 }
-  
-.Spinner{
+
+.Spinner {
   position: absolute;
   top: 80%;
   left: 25%;

@@ -6,92 +6,164 @@ const emarking = "http://localhost/mod/emarking/ajax/a.php";
 const urlParams = new URLSearchParams(window.location.search);
 const ids = urlParams.get("id");
 
-
 export const getJson = async (action) => {
   try {
-    
     const response = await axios.get(
       emarking + "?ids=" + ids + "&action=" + action
     );
     // return response;
-   return response;
-
+    return response;
   } catch (error) {
     console.error("Error fetching data:");
     console.error(error);
   }
-  };
+};
 
-  export const updatePin = async (pin,newLevel,comment,bonus = 0,setAllTabs,setSubmission) => {
-    try {
-      axios
-        .get(
-          emarking +
-            "?ids=" +
-            ids +
-            "&action=updcomment&cid=" +
-            pin.id +
-            "&posx=" +
-            pin.posx * parseInt((window.innerWidth / 10) * 6) +
-            "&posy=" +
-            pin.posy * parseInt((window.innerWidth / 10) * 8) +
-            "&bonus=" +
-            bonus +
-            "&format=" +
-            pin.format +
-            "&levelid=" +
-            newLevel +
-            "&regradeid=" +
-            pin.regradeid +
-            "&regradeaccepted=" +
-            pin.regradeaccepted +
-            "&regrademarkercomment=" +
-            pin.regrademarkercomment +
-            "&markerid=" +
-            pin.markerid + //This should be your id!!!
-            "&width=" +
-            pin.width +
-            "&height=" +
-            pin.height +
-            "&comment=" +
-            comment +
-            "&windowswidth=" + //Width an heigth OF THE IMG TAG
-            parseInt((window.innerWidth / 10) * 6) + //60 vw
-            "&windowsheight=" +
-            parseInt((window.innerWidth / 10) * 8) + //80 VW (WIDTH)
-            "&feedback=" +
-            ""
-        )
-        .then((response) => {
-          updateApp(setAllTabs,setSubmission);
-
-        });
-    } catch (error) {
-      console.error("Error fetching data:");
-      console.error(error);
-    }
-    };
-
-  export const updateApp = (setAllTabs,setSubmission) => {
-    try {
-      // console.log('Updating app');
-      // setSubmission(getJson("getsubmission"));
-      // setAllTabs(getJson("getalltabs"));
-      getJson("getalltabs").then((response) => {
-        setAllTabs(response);
-      }).catch((err) => {
-        console.log(err)
+export const updatePin = async (
+  pin,
+  newLevel,
+  comment,
+  bonus = 0,
+  setAllTabs,
+  setSubmission
+) => {
+  try {
+    axios
+      .get(
+        emarking +
+          "?ids=" +
+          ids +
+          "&action=updcomment&cid=" +
+          pin.id +
+          "&posx=" +
+          pin.posx * parseInt((window.innerWidth / 10) * 6) +
+          "&posy=" +
+          pin.posy * parseInt((window.innerWidth / 10) * 8) +
+          "&bonus=" +
+          bonus +
+          "&format=" +
+          pin.format +
+          "&levelid=" +
+          newLevel +
+          "&regradeid=" +
+          pin.regradeid +
+          "&regradeaccepted=" +
+          pin.regradeaccepted +
+          "&regrademarkercomment=" +
+          pin.regrademarkercomment +
+          "&markerid=" +
+          pin.markerid + //This should be your id!!!
+          "&width=" +
+          pin.width +
+          "&height=" +
+          pin.height +
+          "&comment=" +
+          comment +
+          "&windowswidth=" + //Width an heigth OF THE IMG TAG
+          parseInt((window.innerWidth / 10) * 6) + //60 vw
+          "&windowsheight=" +
+          parseInt((window.innerWidth / 10) * 8) + //80 VW (WIDTH)
+          "&feedback=" +
+          ""
+      )
+      .then((response) => {
+        updateApp(setAllTabs, setSubmission);
       });
-      getJson("getsubmission").then((response) => {
-        setSubmission(response);
-      }
-      ).catch((err) => {
-        console.log(err)
-      });
-
-    } catch (error) {
-      console.log(error);
-    }  
+  } catch (error) {
+    console.error("Error fetching data:");
+    console.error(error);
   }
+};
 
+export const updateApp = (setAllTabs, setSubmission) => {
+  try {
+    // console.log('Updating app');
+    // setSubmission(getJson("getsubmission"));
+    // setAllTabs(getJson("getalltabs"));
+    getJson("getalltabs")
+      .then((response) => {
+        setAllTabs(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    getJson("getsubmission")
+      .then((response) => {
+        setSubmission(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+export const handlePhotoClick = (e, setInfoToAdd, setShowAdd) => {
+  // const rect = imageRef.current.getBoundingClientRect();
+  const rect = e.target.getBoundingClientRect();
+
+  const absoluteX = e.clientX;
+  const absoluteY = e.clientY; //These are the coordinates of the click in px, based at the top of the page
+
+  const relativeX = absoluteX - rect.left;
+  const relativeY = absoluteY - rect.top;
+
+  // const relativeX = absoluteX / parseInt((window.innerWidth / 10) * 6);
+  // const relativeY = absoluteY / parseInt((window.innerWidth / 10) * 8);
+
+  const pageId = e.target.id; // Starting from 1, the index of the page
+
+  setInfoToAdd((prevState) => ({
+    ...prevState,
+    posx: relativeX,
+    posy: relativeY,
+    pageno: pageId,
+  }));
+
+  setShowAdd(true);
+
+  return "hola";
+};
+
+export const newPin = async (
+  infoToAdd,
+  levelSelectedId,
+  bonus = 0,
+  comment = "",
+  setAllTabs,
+  setSubmission
+) => {
+  try {
+    axios
+      .get(
+        emarking +
+          "?ids=" +
+          ids +
+          "&action=addmark&level=" +
+          levelSelectedId +
+          "&posx=" +
+          infoToAdd.posx +
+          "&posy=" +
+          infoToAdd.posy +
+          "&pageno=" +
+          infoToAdd.pageno +
+          "&bonus=" +
+          bonus +
+          "&comment=" +
+          comment +
+          "&windowswidth=" + //Width an heigth OF THE IMG TAG
+          parseInt((window.innerWidth / 10) * 6) + //60 vw
+          "&windowsheight=" +
+          parseInt((window.innerWidth / 10) * 8) + //80 VW (WIDTH)
+          "&feedback=" +
+          ""
+      )
+      .then((response) => {
+        updateApp(setAllTabs, setSubmission);
+      });
+  } catch (error) {
+    console.error("Error fetching data:");
+    console.error(error);
+  }
+};
