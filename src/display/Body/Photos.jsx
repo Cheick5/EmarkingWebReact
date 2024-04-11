@@ -56,6 +56,7 @@ const Photos = () => {
                 setShow={setShowEdit}
                 photoId={parseInt(allTabs.data.values[object].id)}
                 setPhotoId={setPhotoId}
+                style={{ position: "absolute" }}
               />
             )
           )}

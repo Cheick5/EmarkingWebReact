@@ -1,15 +1,26 @@
 .photos {
+  /* /* border: 1px solid #00ff00; */
+  width: 60vw;
+  position: relative;
+}
+.photo {
   /* border: 1px solid #00ff00;
   width: 60vw; */
   position: relative;
 }
 .photos img {
   /* border: 1px solid #00ff00; */
-  width: 60vw;
+  /* width: 60vw; */
   /* margin-bottom: 20px; */
   border-bottom: 10px solid black;
 }
 
 .pins {
   position: absolute;
+}
+
+@media (max-width: 768px) {
+  .photos {
+    width: 100%;
+  }
 }
