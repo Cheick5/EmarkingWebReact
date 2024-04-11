@@ -33,7 +33,13 @@ const AddMarkModal = ({ showAddMark, setShowAddMark, infoToAdd }) => {
         criterionId={criterionId}
         infoToAdd={infoToAdd}
       />
-      <Modal animation={true} show={showAddMark} onHide={handleClose}>
+      <Modal
+        animation={true}
+        show={showAddMark}
+        onHide={handleClose}
+        className="WenaSi"
+        style={{ width: "80%" }}
+      >
         <Modal.Header className="AddEditHeader">
           <div>Imported rubric</div>
           {/* <div>{pin == null ? "" : pin.criteriondesc}</div> */}
