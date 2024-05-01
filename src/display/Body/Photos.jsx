@@ -5,13 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarker } from "@fortawesome/free-solid-svg-icons";
 import EditModal from "../AddEdit/EditModal.jsx";
 import AddMarkModal from "../AddEdit/AddMarkModal.jsx";
+import AddCommentModal from "../AddEdit/AddCommentModal.jsx";
 import Pins from "./Pins.jsx";
 import { handlePhotoClick } from "./Functions.jsx";
 
 const Photos = () => {
-  const { allTabs } = useContext(Context);
+  const { allTabs, activeMarkIcon } = useContext(Context);
   const [showEdit, setShowEdit] = useState(false);
   const [showAddMark, setShowAddMark] = useState(false);
+  const [showCommentAdd, setShowCommentAdd] = useState(false);
   const [infoToAdd, setInfoToAdd] = useState({});
   const [pin, setPin] = useState(null);
   const [photoId, setPhotoId] = useState(null);
@@ -28,6 +30,12 @@ const Photos = () => {
         pin={pin}
         setPin={setPin}
       />
+      <AddCommentModal
+        showCommentAdd={showCommentAdd}
+        setShowCommentAdd={setShowCommentAdd}
+        infoToAdd={infoToAdd}
+        format = {activeMarkIcon}
+      />
       <AddMarkModal
         showAddMark={showAddMark}
         setShowAddMark={setShowAddMark}
@@ -42,7 +50,15 @@ const Photos = () => {
             key={index}
             draggable="false"
             src={allTabs.data.values[object].url}
-            onClick={(e) => handlePhotoClick(e, setInfoToAdd, setShowAddMark)}
+            onClick={(e) =>
+              handlePhotoClick(
+                e,
+                setInfoToAdd,
+                setShowAddMark,
+                setShowCommentAdd,
+                activeMarkIcon
+              )
+            }
           />
           {/* The request to addmarks uses the index starting from 1, so we are going to just add 1 to this id */}
           {Object.keys(allTabs.data.values[object].comments).map(

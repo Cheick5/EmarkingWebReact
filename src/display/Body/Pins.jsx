@@ -1,7 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMapMarkerAlt,
+  faComment,
+  faCheck,
+  faRemove,
+} from "@fortawesome/free-solid-svg-icons";
 import Draggable from "react-draggable";
 import AddEditModal from "../AddEdit/EditModal.jsx";
 import "../Styles/styles_photos.css";
@@ -21,7 +26,7 @@ const Pins = ({
   const [hover, setHover] = useState("");
   const [oldPos, setOldPos] = useState({ x: 0, y: 0 });
   const [newPos, setNewPos] = useState({ x: 0, y: 0 });
-  const { setSubmission, setAllTabs } = useContext(Context);
+  const { setSubmission, setAllTabs, activeMarkIcon } = useContext(Context);
 
   const handleMouseOver = (e, object) => {
     e.target.style.cursor = "all-scroll"; // Change cursor to pointer
@@ -72,8 +77,6 @@ const Pins = ({
     const diffX = newX - oldPos.x; //Positivo -> derecha, negativo -> izquierda
     const diffY = newY - oldPos.y; //Positivo -> abajo, negativo -> arriba
 
-    // console.log("diffX: "+diffX+"  diffY: "+diffY);
-
     if (Math.abs(diffX) < 20 && Math.abs(diffY) < 20) {
       setShow(true);
     } else {
@@ -82,21 +85,6 @@ const Pins = ({
         x: comment.posx * ((window.innerWidth / 10) * 6) + diffX,
         y: comment.posy * ((window.innerWidth / 10) * 8) + diffY,
       });
-
-      // console.log('poss x new');
-      // console.log( comment.posx * ((window.innerWidth / 10) * 6) + diffX);
-      // console.log('poss y new');
-      // console.log( comment.posy * ((window.innerWidth / 10) * 8) + diffY);
-
-      // console.log("pinposx");
-      // console.log(comment.posx * ((window.innerWidth / 10) * 6));
-      // console.log("newX: " + newX + "newY: " + newY);
-      // console.log("newX / lol: " + newX/((window.innerWidth / 10) * 6) + " newY / lol: " + newY/((window.innerWidth / 10) * 8));
-
-      // console.log("sumando1");
-      // console.log(comment.posx);
-      // console.log("sumando2");
-      // console.log(parseFloat(diffX / parseFloat((window.innerWidth / 10) * 6)));
 
       comment.posx =
         parseFloat(comment.posx) +
@@ -117,6 +105,18 @@ const Pins = ({
         setAllTabs,
         setSubmission
       );
+    }
+  };
+  const switchIconsFormat = (format) => {
+    switch (format) {
+      case "1":
+        return faComment;
+      case "2":
+        return faMapMarkerAlt;
+      case "3":
+        return faCheck;
+      case "4":
+        return faRemove;
     }
   };
 
@@ -140,7 +140,11 @@ const Pins = ({
         onClick={(e) => handleMouseClick(e, comment)}
       >
         <div style={{ pointerEvents: "none" }}>
-          <FontAwesomeIcon icon={faMapMarkerAlt} style={{ color: "red" }} />
+          {/* <FontAwesomeIcon icon={faMapMarkerAlt} style={{ color: "red" }} /> */}
+          <FontAwesomeIcon
+            icon={switchIconsFormat(comment.format)}
+            style={{ color: "red" }}
+          />
         </div>
       </div>
     </Draggable>

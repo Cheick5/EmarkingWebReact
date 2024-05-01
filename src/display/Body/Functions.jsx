@@ -75,7 +75,8 @@ export const updatePin = async (
   }
 };
 
-export const updateApp = (setAllTabs, setSubmission) => {
+export const updateApp = (setAllTabs, setSubmission, setPrevComments) => {
+  //TODO: add prevcomment
   try {
     // console.log('Updating app');
     // setSubmission(getJson("getsubmission"));
@@ -94,12 +95,25 @@ export const updateApp = (setAllTabs, setSubmission) => {
       .catch((err) => {
         console.log(err);
       });
+    getJson("prevcomments")
+      .then((response) => {
+        setPrevComments(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const handlePhotoClick = (e, setInfoToAdd, setShowAdd) => {
+export const handlePhotoClick = (
+  e,
+  setInfoToAdd,
+  setShowAdd,
+  setShowCommentAdd,
+  activeMarkIcon
+) => {
   // const rect = imageRef.current.getBoundingClientRect();
   const rect = e.target.getBoundingClientRect();
 
@@ -120,8 +134,15 @@ export const handlePhotoClick = (e, setInfoToAdd, setShowAdd) => {
     posy: relativeY,
     pageno: pageId,
   }));
-
-  setShowAdd(true);
+  console.log("Active = " + activeMarkIcon);
+  if (activeMarkIcon == 2) {
+    // Normal Mark
+    setShowAdd(true);
+  } else {
+    //Commnt
+    console.log("U GAIN NOTHIING");
+    setShowCommentAdd(true);
+  }
 
   return "hola";
 };
@@ -158,6 +179,59 @@ export const newPin = async (
           parseInt((window.innerWidth / 10) * 8) + //80 VW (WIDTH)
           "&feedback=" +
           ""
+      )
+      .then((response) => {
+        updateApp(setAllTabs, setSubmission);
+      });
+  } catch (error) {
+    console.error("Error fetching data:");
+    console.error(error);
+  }
+};
+
+export const newComment = async (
+  infoToAdd,
+  format,
+  comment = "",
+  setAllTabs,
+  setSubmission,
+  colour = "0",
+  criterionid = "0"
+) => {
+  // var color = "0"; //TODO: En rúbricas multicolor, color se asigna al color de la rúbrica
+  // var criterionid = "0"; //TODO: En rúbricas multicolor, criterionid se asigna al color de la rúbrica
+  try {
+    console.log(infoToAdd);
+    axios
+      .get(
+        emarking +
+          "?ids=" +
+          ids +
+          "&action=addcomment" +
+          "&comment=" +
+          comment +
+          "&posx=" +
+          infoToAdd.posx +
+          "&posy=" +
+          infoToAdd.posy +
+          "&width=" +
+          parseInt((window.innerWidth / 10) * 6) +
+          "&height=" +
+          parseInt((window.innerWidth / 10) * 8) + //TODO: For some reason, emarkingsJava gives the same value, check it!
+          "&format=" +
+          format +
+          "&pageno=" +
+          infoToAdd.pageno +
+          "&criterionid=" +
+          criterionid +
+          "&colour=" +
+          colour +
+          "&windowswidth=" + //Width an heigth OF THE IMG TAG
+          parseInt((window.innerWidth / 10) * 6) + //60 vw
+          "&windowsheight=" +
+          parseInt((window.innerWidth / 10) * 8) //80 VW (WIDTH)
+        // "&level=" +
+        // levelSelectedId
       )
       .then((response) => {
         updateApp(setAllTabs, setSubmission);

@@ -18,36 +18,20 @@ const Body = () => {
   const [json, setJson] = useState(null);
   const [submission, setSubmission] = useState(null);
   const [allTabs, setAllTabs] = useState(null);
+  const [prevComments, setPrevComments] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [activeMarkIcon, setActiveMarkIcon] = useState("2");
   // const ids = 203;
   const urlParams = new URLSearchParams(window.location.search);
   const ids = urlParams.get("id");
   // const action = "getsubmission";
   useEffect(() => {
-    updateApp(setAllTabs, setSubmission);
+    updateApp(setAllTabs, setSubmission, setPrevComments);
   }, []);
-  // useEffect(() => {
-  //   console.log("use efect submission alltabs")
-  //   if (setSubmission){
-  //     loading[0] = false;
-  //   }
-  //   if (setAllTabs){
-  //     loading[1] = false;
-  //   }
-  // }, [submission, allTabs]);
 
-  // if (loading[0] || loading[1]) {
-  //   return <p>Loading...</p>; // This single loading is the goat of the code
-  // }
-
-  // if(submission == null || allTabs == null){
   if (submission == null || allTabs == null) {
     return <Logo />;
   }
-  // if(allTabs === null){
-  //   return <p>AllTabs is null</p>
-  // }
-
   return (
     <div>
       <Context.Provider
@@ -58,12 +42,12 @@ const Body = () => {
           setAllTabs,
           loading,
           setLoading,
+          activeMarkIcon,
+          setActiveMarkIcon,
+          prevComments,
+          setPrevComments,
         }}
       >
-        {/* <AjaxRequest
-          ids={203}
-          action="getsubmission"
-        /> */}
         <TopDiv />
         <div className="box">
           <Rubric />

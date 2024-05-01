@@ -2,7 +2,9 @@
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { useState } from "react";
+import { useState, useContext } from "react";
+// import { Context } from "./Body.jsx";
+import { Context } from "../Body/Body.jsx";
 import {
   faMapMarker,
   faComment,
@@ -20,7 +22,10 @@ import {
   faBook,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/styles_nav.css";
+
 const Botones = () => {
+  const { activeMarkIcon, setActiveMarkIcon } = useContext(Context);
+
   const handleDivClick = (id) => {
     const div = document.getElementById(id);
     const divs = document.getElementsByClassName("button_selected");
@@ -28,6 +33,7 @@ const Botones = () => {
       divs[i].classList.remove("button_selected");
     }
     div.classList.add("button_selected");
+    setActiveMarkIcon(id);
   };
 
   return (
@@ -39,10 +45,15 @@ const Botones = () => {
       >
         <Tab eventKey="corregir" title="Corregir">
           <div className="wrap">
-            <div id="1" onClick={() => handleDivClick("1")}>
+            <div
+              className="button_selected"
+              id="2"
+              onClick={() => handleDivClick("2")}
+            >
+              {/* This is becouse in Eamrking, the Mark pin is id 2!! */}
               <FontAwesomeIcon icon={faMapMarker} />
             </div>
-            <div id="2" onClick={() => handleDivClick("2")}>
+            <div id="1" onClick={() => handleDivClick("1")}>
               <FontAwesomeIcon icon={faComment} />
             </div>
             <div id="3" onClick={() => handleDivClick("3")}>

@@ -8,7 +8,7 @@ import "../Styles/styles_modal.css";
 import { Context } from "../Body/Body.jsx";
 import axios from "axios";
 import { getJson, updateApp } from "../Body/Functions.jsx";
-import { newPin } from "../Body/Functions.jsx";
+import { newComment } from "../Body/Functions.jsx";
 
 // This component is called after AddMarkModal.
 // It's the same as EditModal, but it has changes in the requests and in the parameters.
@@ -17,76 +17,65 @@ import { newPin } from "../Body/Functions.jsx";
 // This is called when the user clicks on the photo.
 // EditModal is called when the user clicks on a pin in the photo.
 
-const AddModal = ({
-  showAdd,
-  setShowAdd,
+const AddCommentModal = ({
+  showCommentAdd,
+  setShowCommentAdd,
   levelSelected,
   criterionId,
   infoToAdd,
+  format,
 }) => {
   // Your component logic goes here
 
-  const { submission, setAllTabs, setSubmission } = useContext(Context);
+  const { submission, setAllTabs, allTabs, setSubmission } =
+    useContext(Context);
   const [newLevel, setNewLevel] = useState(null);
   const [comment, setComment] = useState("");
   const [bonus, setBonus] = useState("+0");
 
   const handleClose = () => {
-    setShowAdd(false);
+    setShowCommentAdd(false);
   };
 
   const urlParams = new URLSearchParams(window.location.search);
   const ids = urlParams.get("id");
 
   const handleSave = () => {
+    // console.log("infoToAdd");
+    // console.log(infoToAdd);
+    // console.log("levelSelected");
+    // console.log(levelSelected);
+    // console.log("format");
+    // console.log(format);
+    // console.log("comment");
+    // console.log(comment);
+    // console.log("setAllTabs");
+    // console.log(allTabs);
+    // console.log("setSubmission");
+    // console.log(submission);
     // updatePin(pin, newLevel, comment, bonus, setAllTabs, setSubmission);
-    newPin(
+    newComment(
       infoToAdd,
-      levelSelected.id,
-      bonus,
+      // levelSelected.id,
+      format,
       comment,
       setAllTabs,
       setSubmission
     );
-    setShowAdd(false);
+    setShowCommentAdd(false);
   };
 
-  // console.log("criterionId");
-  // console.log(criterionId);
-  // console.log("submission.data.values.rubric");
-  // console.log(submission.data.values.rubric);
-  // console.log("submission.data.values.rubric[criterionId]");
-  // console.log(submission.data.values.rubric[criterionId]);
-
-  if (criterionId == null) {
-    return <div></div>;
-  }
+  // if (criterionId == null) {
+  //   return <div></div>;
+  // } //TODO: que
 
   return (
     // Your JSX code goes here
-    <Modal animation={true} show={showAdd} onHide={handleClose}>
+    <Modal animation={true} show={showCommentAdd} onHide={handleClose}>
       <Modal.Header className="AddEditHeader">
-        <div>Agregar corrección</div>
+        <div>Agregar comentario</div>
       </Modal.Header>
       <Modal.Body className="AddEditBody">
-        <div className="AddEditBodyRows">
-          Nivel
-          <select
-            className="WidthRight"
-            style={{ textAlign: "right" }}
-            defaultValue={levelSelected.id}
-            onChange={(e) => setNewLevel(e.target.value)}
-          >
-            {submission.data.values.rubric[criterionId].levels.map(
-              (object, index) => (
-                <option key={index} value={object.id}>
-                  {object.description.replace(/<[^>]+>/g, "")}
-                </option>
-              )
-            )}
-            {/* <option value="1">1</option> */}
-          </select>
-        </div>
         <div className="AddEditBodyRows">
           Comentario
           <textarea
@@ -95,16 +84,6 @@ const AddModal = ({
             className="WidthRight"
             onChange={(e) => setComment(e.target.value)}
           />
-        </div>
-        <div className="AddEditBodyRows">
-          Ajustar Puntaje
-          <input
-            className="WidthRight"
-            defaultValue="+0"
-            // value={bonus}
-            style={{ textAlign: "right" }}
-            onChange={(e) => setBonus(e.target.value)}
-          ></input>
         </div>
       </Modal.Body>
       <Modal.Footer>
@@ -120,4 +99,4 @@ const AddModal = ({
   );
 };
 
-export default AddModal;
+export default AddCommentModal;
