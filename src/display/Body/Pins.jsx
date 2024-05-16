@@ -13,19 +13,23 @@ import "../Styles/styles_photos.css";
 import { updatePin } from "../Body/Functions.jsx";
 import { useContext } from "react";
 import { Context } from "../Body/Body.jsx";
+import CommentToolTip from "../ToolTip/CommentToolTip.jsx";
 
 const Pins = ({
   idDiv,
   comment,
   show,
   setShow,
+  setShowEditComment,
   setPin,
   photoId,
   setPhotoId,
 }) => {
   const [hover, setHover] = useState("");
+  const [showToolTip, setShowToolTip] = useState(false);
   const [oldPos, setOldPos] = useState({ x: 0, y: 0 });
   const [newPos, setNewPos] = useState({ x: 0, y: 0 });
+
   const { setSubmission, setAllTabs, activeMarkIcon } = useContext(Context);
 
   const handleMouseOver = (e, object) => {
@@ -40,6 +44,10 @@ const Pins = ({
     setPin(comment);
     setPhotoId(photoId);
     setHover(e.target.id);
+
+    if (comment.criterionid != 2) {
+      setShowToolTip(true);
+    }
   };
 
   const handleMouseOut = (e, criterionid) => {
@@ -51,11 +59,13 @@ const Pins = ({
         divs[i].style.backgroundColor = "transparent";
       }
     }
+    // setShowToolTip(false);
   };
 
   const handleMouseClick = (e, object) => {
     // setShow(true);
     console.log("click");
+    // console.log(comment)
   };
   const handleDragStart = (e, object) => {
     setOldPos({ x: e.clientX, y: e.clientY });
@@ -78,7 +88,11 @@ const Pins = ({
     const diffY = newY - oldPos.y; //Positivo -> abajo, negativo -> arriba
 
     if (Math.abs(diffX) < 20 && Math.abs(diffY) < 20) {
-      setShow(true);
+      if (comment.format == 2) {
+        setShow(true);
+      } else {
+        setShowEditComment(true);
+      }
     } else {
       //TODO: Set the diference in positions insteead of getting the pos
       setNewPos({
@@ -121,33 +135,43 @@ const Pins = ({
   };
 
   return (
-    <Draggable
-      bounds="parent"
-      onStart={(e) => handleDragStart(e, comment)}
-      onDrag={(e) => handleDrag(e, comment)}
-      onStop={(e) => handleDragStop(e, comment)}
-      position={{ x: 0, y: 0 }}
-    >
-      <div
-        id={idDiv}
-        className="pins"
-        style={{
-          left: `${comment.posx * 100}%`,
-          top: `${comment.posy * 100}%`,
-        }}
-        onMouseOver={(e) => handleMouseOver(e, comment)}
-        onMouseOutCapture={(e) => handleMouseOut(e, comment.criterionid)}
-        onClick={(e) => handleMouseClick(e, comment)}
+    <div>
+      <Draggable
+        bounds="parent"
+        onStart={(e) => handleDragStart(e, comment)}
+        onDrag={(e) => handleDrag(e, comment)}
+        onStop={(e) => handleDragStop(e, comment)}
+        position={{ x: 0, y: 0 }}
       >
-        <div style={{ pointerEvents: "none" }}>
-          {/* <FontAwesomeIcon icon={faMapMarkerAlt} style={{ color: "red" }} /> */}
-          <FontAwesomeIcon
-            icon={switchIconsFormat(comment.format)}
-            style={{ color: "red" }}
-          />
+        <div
+          id={idDiv}
+          className="pins"
+          style={{
+            left: `${comment.posx * 100}%`,
+            top: `${comment.posy * 100}%`,
+          }}
+          onMouseOver={(e) => handleMouseOver(e, comment)}
+          onMouseOutCapture={(e) => handleMouseOut(e, comment.criterionid)}
+          onClick={(e) => handleMouseClick(e, comment)}
+        >
+          <div style={{ pointerEvents: "none" }}>
+            <FontAwesomeIcon
+              icon={switchIconsFormat(comment.format)}
+              style={{ color: "red" }}
+            />
+          </div>
         </div>
-      </div>
-    </Draggable>
+      </Draggable>
+      <CommentToolTip
+        comment={comment.rawtext}
+        author = {comment.markername}
+        posx={comment.posx}
+        posy={comment.posy}
+        pageno={comment.pageno}
+        show={showToolTip}
+        setShowToolTip={setShowToolTip}
+      />
+    </div>
   );
 };
 

@@ -14,7 +14,7 @@ import { updatePin } from "../Body/Functions.jsx";
 // This is called when the user clicks on a pin in the photo.
 // AddModal is called when the user clicks on the photo.
 
-const EditModal = ({ show, setShow, pin, add }) => {
+const EditCommentModal = ({ show, setShow, pin, add }) => {
   // Your component logic goes here
 
   const { submission, setAllTabs, setSubmission } = useContext(Context);
@@ -37,44 +37,15 @@ const EditModal = ({ show, setShow, pin, add }) => {
   if (pin == null) {
     return <div></div>;
   }
-  if (submission.data.values.rubric[pin.criterionid] == undefined) {
-    return <div></div>;
-  }
 
   return (
     // Your JSX code goes here
     <Modal animation={true} show={show} onHide={handleClose}>
       <Modal.Header className="AddEditHeader">
-        <div>Editar corrección</div>
+        <div>Editar comentario</div>
         <div>{pin == null ? "" : pin.criteriondesc}</div>
       </Modal.Header>
       <Modal.Body className="AddEditBody">
-        <div className="AddEditBodyRows">
-          Nivel
-          <select
-            className="WidthRight"
-            style={{ textAlign: "right" }}
-            defaultValue={pin.levelid}
-            onChange={(e) => setNewLevel(e.target.value)}
-          >
-            {/* {console.log("submission")}
-            {console.log(submission)}
-            {console.log("submission.data")}
-            {console.log(submission.data)}
-            {console.log("submission.data.values")}
-            {console.log(submission.data.values)}
-            {console.log("submission.data.rubric")}
-            {console.log(submission.data.rubric)} */}
-            {submission.data.values.rubric[pin.criterionid].levels.map(
-              (object, index) => (
-                <option key={index} value={object.id}>
-                  {object.description.replace(/<[^>]+>/g, "")}
-                </option>
-              )
-            )}
-            {/* <option value="1">1</option> */}
-          </select>
-        </div>
         <div className="AddEditBodyRows">
           Comentario
           <textarea
@@ -83,16 +54,6 @@ const EditModal = ({ show, setShow, pin, add }) => {
             className="WidthRight"
             onChange={(e) => setComment(e.target.value)}
           />
-        </div>
-        <div className="AddEditBodyRows">
-          Ajustar Puntaje
-          <input
-            className="WidthRight"
-            defaultValue="+0"
-            // value={bonus}
-            style={{ textAlign: "right" }}
-            onChange={(e) => setBonus(e.target.value)}
-          ></input>
         </div>
       </Modal.Body>
       <Modal.Footer>
@@ -108,4 +69,4 @@ const EditModal = ({ show, setShow, pin, add }) => {
   );
 };
 
-export default EditModal;
+export default EditCommentModal;

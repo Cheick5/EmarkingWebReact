@@ -136,11 +136,8 @@ export const handlePhotoClick = (
   }));
   console.log("Active = " + activeMarkIcon);
   if (activeMarkIcon == 2) {
-    // Normal Mark
     setShowAdd(true);
   } else {
-    //Commnt
-    console.log("U GAIN NOTHIING");
     setShowCommentAdd(true);
   }
 

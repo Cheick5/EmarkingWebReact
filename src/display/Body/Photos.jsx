@@ -4,6 +4,7 @@ import { Context } from "./Body.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarker } from "@fortawesome/free-solid-svg-icons";
 import EditModal from "../AddEdit/EditModal.jsx";
+import EditCommentModal from "../AddEdit/EditCommentModal.jsx";
 import AddMarkModal from "../AddEdit/AddMarkModal.jsx";
 import AddCommentModal from "../AddEdit/AddCommentModal.jsx";
 import Pins from "./Pins.jsx";
@@ -12,6 +13,7 @@ import { handlePhotoClick } from "./Functions.jsx";
 const Photos = () => {
   const { allTabs, activeMarkIcon } = useContext(Context);
   const [showEdit, setShowEdit] = useState(false);
+  const [showEditComment, setShowEditComment] = useState(false);
   const [showAddMark, setShowAddMark] = useState(false);
   const [showCommentAdd, setShowCommentAdd] = useState(false);
   const [infoToAdd, setInfoToAdd] = useState({});
@@ -30,11 +32,18 @@ const Photos = () => {
         pin={pin}
         setPin={setPin}
       />
+      <EditCommentModal
+        show={showEditComment}
+        setShow={setShowEditComment}
+        pin={pin}
+        setPin={setPin}
+      />
       <AddCommentModal
         showCommentAdd={showCommentAdd}
         setShowCommentAdd={setShowCommentAdd}
         infoToAdd={infoToAdd}
-        format = {activeMarkIcon}
+        format={activeMarkIcon}
+        criterionid={0}
       />
       <AddMarkModal
         showAddMark={showAddMark}
@@ -69,6 +78,7 @@ const Photos = () => {
                 comment={allTabs.data.values[object].comments[index2]}
                 setPin={setPin}
                 show={showEdit}
+                setShowEditComment={setShowEditComment}
                 setShow={setShowEdit}
                 photoId={parseInt(allTabs.data.values[object].id)}
                 setPhotoId={setPhotoId}
