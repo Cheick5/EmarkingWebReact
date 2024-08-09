@@ -9,35 +9,26 @@ import { Context } from "../Body/Body.jsx";
 import axios from "axios";
 import { newComment } from "../Body/Functions.jsx";
 
-// This component is called after AddMarkModal.
-// It's the same as EditModal, but it has changes in the requests and in the parameters.
-// This decision was made to facilitate the understanding of the code.
-// If it where to be in the same file, there would be a lot of conditions and nulls to check.
-// This is called when the user clicks on the photo.
-// EditModal is called when the user clicks on a pin in the photo.
-
-const AddCommentModal = ({
-  showCommentAdd,
-  setShowCommentAdd,
-  levelSelected,
-  criterionId,
-  infoToAdd,
-  format,
+const AddRecorrection = ({
+  showAddRecorrection,
+  setShowAddRecorrection,
+  pin,
+  setpin,
 }) => {
   // Your component logic goes here
 
   const { submission, setAllTabs, allTabs, setSubmission } =
     useContext(Context);
-  const [newLevel, setNewLevel] = useState(null);
   const [comment, setComment] = useState("");
-  const [bonus, setBonus] = useState("+0");
 
   const handleClose = () => {
-    setShowCommentAdd(false);
+    setShowAddRecorrection(false);
   };
 
   const urlParams = new URLSearchParams(window.location.search);
   const ids = urlParams.get("id");
+
+  // const level = pin.levelid;
 
   const handleSave = () => {
     newComment(
@@ -48,17 +39,35 @@ const AddCommentModal = ({
       setAllTabs,
       setSubmission
     );
-    setShowCommentAdd(false);
+    setShowAddRecorrection(false);
   };
 
   return (
-    <Modal animation={true} show={showCommentAdd} onHide={handleClose}>
+    <Modal animation={true} show={showAddRecorrection} onHide={handleClose}>
       <Modal.Header className="AddEditHeader">
-        <div>Agregar comentario</div>
+        <div>Recorrección</div>
       </Modal.Header>
       <Modal.Body className="AddEditBody">
+        Motivo
+        <select
+          className="WidthRight"
+          style={{ textAlign: "right" }}
+          // defaultValue={levelSelected.id}
+          onChange={(e) => setNewLevel(e.target.value)}
+        >
+          <option value="0">Seleccione</option>
+          <option value="1">Asignaron menor puntaje del correspondiente</option>
+          <option value="2">No queda claro dónde está el error</option>
+          <option value="3">Problemas con el enunciado</option>
+          <option value="4">Error de arrastre</option>
+          <option value="5">
+            Mi respuesta tiene un enfoque distinto al de la pauta, pero de igual
+            manera correcto
+          </option>
+          <option value="10">Otro</option>
+        </select>
         <div className="AddEditBodyRows">
-          Comentario
+          Comentario para corrector
           <textarea
             placeholder="Escribe aquí tu retroalimentación general"
             name="height"
@@ -80,4 +89,4 @@ const AddCommentModal = ({
   );
 };
 
-export default AddCommentModal;
+export default AddRecorrection;

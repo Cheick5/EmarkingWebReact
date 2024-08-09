@@ -7,7 +7,6 @@ import { useContext } from "react";
 import "../Styles/styles_modal.css";
 import { Context } from "../Body/Body.jsx";
 import axios from "axios";
-import { getJson, updateApp } from "../Body/Functions.jsx";
 import { updatePin } from "../Body/Functions.jsx";
 
 // This component is the same as AddModal, but it has changes in the requests and in the parameters.
@@ -57,14 +56,6 @@ const EditModal = ({ show, setShow, pin, add }) => {
             defaultValue={pin.levelid}
             onChange={(e) => setNewLevel(e.target.value)}
           >
-            {/* {console.log("submission")}
-            {console.log(submission)}
-            {console.log("submission.data")}
-            {console.log(submission.data)}
-            {console.log("submission.data.values")}
-            {console.log(submission.data.values)}
-            {console.log("submission.data.rubric")}
-            {console.log(submission.data.rubric)} */}
             {submission.data.values.rubric[pin.criterionid].levels.map(
               (object, index) => (
                 <option key={index} value={object.id}>

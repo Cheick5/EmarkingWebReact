@@ -9,7 +9,7 @@ import React, { useState, useEffect } from "react";
 import TopDiv from "../Nav/TopDiv.jsx";
 import axios from "axios";
 import AddEditModal from "../AddEdit/EditModal.jsx";
-import { getJson, updateApp } from "./Functions.jsx";
+import { updateApp } from "./Functions.jsx";
 import Logo from "./Loading.jsx";
 
 export const Context = React.createContext();
@@ -17,6 +17,7 @@ export const Context = React.createContext();
 const Body = () => {
   const [json, setJson] = useState(null);
   const [submission, setSubmission] = useState(null);
+  const [ping, setPing] = useState(null);
   const [allTabs, setAllTabs] = useState(null);
   const [prevComments, setPrevComments] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -26,16 +27,18 @@ const Body = () => {
   const ids = urlParams.get("id");
   // const action = "getsubmission";
   useEffect(() => {
-    updateApp(setAllTabs, setSubmission, setPrevComments);
+    updateApp(setAllTabs, setSubmission, setPrevComments,setPing);
   }, []);
 
-  if (submission == null || allTabs == null) {
+  if (submission == null || allTabs == null || ping == null) {
     return <Logo />;
   }
   return (
     <div>
       <Context.Provider
         value={{
+          ping,
+          setPing,
           submission,
           setSubmission,
           allTabs,

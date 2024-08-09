@@ -19,6 +19,20 @@
 
 .pins {
   position: absolute;
+  pointer-events: auto;
+}
+
+.PinAndToolTipContainer {
+  position: absolute;
+  top: 0; /* Align to the top of the containing block */
+  left: 0; /* Align to the left of the containing block */
+  right: 0; /* Stretch to the right edge of the containing block */
+  bottom: 0;
+  pointer-events: none;
+}
+
+.PinAndToolTipContainer div {
+  pointer-events: auto;
 }
 
 @media (max-width: 768px) {

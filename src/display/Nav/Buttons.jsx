@@ -24,7 +24,7 @@ import {
 import "../Styles/styles_nav.css";
 
 const Botones = () => {
-  const { activeMarkIcon, setActiveMarkIcon } = useContext(Context);
+  const { ping, setActiveMarkIcon } = useContext(Context);
 
   const handleDivClick = (id) => {
     const div = document.getElementById(id);
@@ -36,89 +36,130 @@ const Botones = () => {
     setActiveMarkIcon(id);
   };
 
-  return (
-    <div className="nav-bar sticky-top">
-      <Tabs
-        defaultActiveKey="corregir"
-        transition={false}
-        id="noanim-tab-example"
-      >
-        <Tab eventKey="corregir" title="Corregir">
-          <div className="wrap">
-            <div
-              className="button_selected"
-              id="2"
-              onClick={() => handleDivClick("2")}
-            >
-              {/* This is becouse in Eamrking, the Mark pin is id 2!! */}
-              <FontAwesomeIcon icon={faMapMarker} />
+  // console.log("ping");
+  // console.log(ping);
+  // console.log("ping read only", ping.readonly);
+  if (ping.data.values.readonly == true) {
+    console.log("User can only read");
+    return (
+      <div className="nav-bar sticky-top">
+        <Tabs defaultActiveKey="ver" transition={false} id="noanim-tab-example">
+          <Tab eventKey="ver" title="Ver">
+            <div className="wrap">
+              <div id="11" onClick={() => handleDivClick("11")}>
+                <FontAwesomeIcon icon={faTh} />
+                <p>Mostrar rúbrica</p>
+              </div>
+              {/* <div id="12" onClick={() => handleDivClick("12")}>
+                <FontAwesomeIcon icon={faTint} />
+                <p>Rúbrica multicolor</p>
+              </div> */}
+              <div id="13" onClick={() => handleDivClick("13")}>
+                <FontAwesomeIcon icon={faMapMarker} />
+                <p>Ícono/Texto</p>
+              </div>
             </div>
-            <div id="1" onClick={() => handleDivClick("1")}>
-              <FontAwesomeIcon icon={faComment} />
+          </Tab>
+          <Tab eventKey="ayuda" title="Ayuda">
+            <div className="wrap">
+              <div id="14" onClick={() => handleDivClick("14")}>
+                <FontAwesomeIcon icon={faCircleInfo} />
+                <p>Sobre e-marking</p>
+              </div>
+              <div id="15" onClick={() => handleDivClick("15")}>
+                <FontAwesomeIcon icon={faBook} />
+                <p>Tutoriales</p>
+              </div>
             </div>
-            <div id="3" onClick={() => handleDivClick("3")}>
-              <FontAwesomeIcon icon={faCheck} />
+          </Tab>
+        </Tabs>
+      </div>
+    );
+  } else {
+    return (
+      <div className="nav-bar sticky-top">
+        <Tabs
+          defaultActiveKey="corregir"
+          transition={false}
+          id="noanim-tab-example"
+        >
+          <Tab eventKey="corregir" title="Corregir">
+            <div className="wrap">
+              <div
+                className="button_selected"
+                id="2"
+                onClick={() => handleDivClick("2")}
+              >
+                {/* This is becouse in Eamrking, the Mark pin is id 2!! */}
+                <FontAwesomeIcon icon={faMapMarker} />
+              </div>
+              <div id="1" onClick={() => handleDivClick("1")}>
+                <FontAwesomeIcon icon={faComment} />
+              </div>
+              <div id="3" onClick={() => handleDivClick("3")}>
+                <FontAwesomeIcon icon={faCheck} />
+              </div>
+              <div id="4" onClick={() => handleDivClick("4")}>
+                <FontAwesomeIcon icon={faRemove} />
+              </div>
+              <div id="5" onClick={() => handleDivClick("5")}>
+                <FontAwesomeIcon icon={faPencil} />
+              </div>
+              <div id="6" onClick={() => handleDivClick("6")}>
+                <FontAwesomeIcon icon={faCircleQuestion} />
+              </div>
+              <div id="7" onClick={() => handleDivClick("7")}>
+                <FontAwesomeIcon icon={faHighlighter} />
+              </div>
             </div>
-            <div id="4" onClick={() => handleDivClick("4")}>
-              <FontAwesomeIcon icon={faRemove} />
+          </Tab>
+          <Tab eventKey="prueba" title="Prueba">
+            <div className="wrap">
+              <div id="8" onClick={() => handleDivClick("8")}>
+                <FontAwesomeIcon icon={faExternalLink} />
+                <p>Abrir Siguiente</p>
+              </div>
+              <div id="9" onClick={() => handleDivClick("9")}>
+                <FontAwesomeIcon icon={faSave} />
+                <p>Guardar y cerrar</p>
+              </div>
+              <div id="10" onClick={() => handleDivClick("10")}>
+                <FontAwesomeIcon icon={faTrophy} />
+                <p>Pauta</p>
+              </div>
             </div>
-            <div id="5" onClick={() => handleDivClick("5")}>
-              <FontAwesomeIcon icon={faPencil} />
+          </Tab>
+          <Tab eventKey="ver" title="Ver">
+            <div className="wrap">
+              <div id="11" onClick={() => handleDivClick("11")}>
+                <FontAwesomeIcon icon={faTh} />
+                <p>Mostrar rúbrica</p>
+              </div>
+              <div id="12" onClick={() => handleDivClick("12")}>
+                <FontAwesomeIcon icon={faTint} />
+                <p>Rúbrica multicolor</p>
+              </div>
+              <div id="13" onClick={() => handleDivClick("13")}>
+                <FontAwesomeIcon icon={faMapMarker} />
+                <p>Ícono/Texto</p>
+              </div>
             </div>
-            <div id="6" onClick={() => handleDivClick("6")}>
-              <FontAwesomeIcon icon={faCircleQuestion} />
+          </Tab>
+          <Tab eventKey="ayuda" title="Ayuda">
+            <div className="wrap">
+              <div id="14" onClick={() => handleDivClick("14")}>
+                <FontAwesomeIcon icon={faCircleInfo} />
+                <p>Sobre e-marking</p>
+              </div>
+              <div id="15" onClick={() => handleDivClick("15")}>
+                <FontAwesomeIcon icon={faBook} />
+                <p>Tutoriales</p>
+              </div>
             </div>
-            <div id="7" onClick={() => handleDivClick("7")}>
-              <FontAwesomeIcon icon={faHighlighter} />
-            </div>
-          </div>
-        </Tab>
-        <Tab eventKey="prueba" title="Prueba">
-          <div className="wrap">
-            <div id="8" onClick={() => handleDivClick("8")}>
-              <FontAwesomeIcon icon={faExternalLink} />
-              <p>Abrir Siguiente</p>
-            </div>
-            <div id="9" onClick={() => handleDivClick("9")}>
-              <FontAwesomeIcon icon={faSave} />
-              <p>Guardar y cerrar</p>
-            </div>
-            <div id="10" onClick={() => handleDivClick("10")}>
-              <FontAwesomeIcon icon={faTrophy} />
-              <p>Pauta</p>
-            </div>
-          </div>
-        </Tab>
-        <Tab eventKey="ver" title="Ver">
-          <div className="wrap">
-            <div id="11" onClick={() => handleDivClick("11")}>
-              <FontAwesomeIcon icon={faTh} />
-              <p>Mostrar rúbrica</p>
-            </div>
-            <div id="12" onClick={() => handleDivClick("12")}>
-              <FontAwesomeIcon icon={faTint} />
-              <p>Rúbrica multicolor</p>
-            </div>
-            <div id="13" onClick={() => handleDivClick("13")}>
-              <FontAwesomeIcon icon={faMapMarker} />
-              <p>Ícono/Texto</p>
-            </div>
-          </div>
-        </Tab>
-        <Tab eventKey="ayuda" title="Ayuda">
-          <div className="wrap">
-            <div id="14" onClick={() => handleDivClick("14")}>
-              <FontAwesomeIcon icon={faCircleInfo} />
-              <p>Sobre e-marking</p>
-            </div>
-            <div id="15" onClick={() => handleDivClick("15")}>
-              <FontAwesomeIcon icon={faBook} />
-              <p>Tutoriales</p>
-            </div>
-          </div>
-        </Tab>
-      </Tabs>
-    </div>
-  );
+          </Tab>
+        </Tabs>
+      </div>
+    );
+  }
 };
 export default Botones;

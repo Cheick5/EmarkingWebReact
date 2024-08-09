@@ -75,12 +75,32 @@ export const updatePin = async (
   }
 };
 
-export const updateApp = (setAllTabs, setSubmission, setPrevComments) => {
+export const updateApp = (
+  setAllTabs,
+  setSubmission,
+  setPrevComments,
+  setPing,
+) => {
   //TODO: add prevcomment
   try {
-    // console.log('Updating app');
-    // setSubmission(getJson("getsubmission"));
-    // setAllTabs(getJson("getalltabs"));
+    if (setPing != null) {
+      getJson("ping")
+      .then((response) => {
+        setPing(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+    if (setPrevComments != null) {
+      getJson("prevcomments")
+      .then((response) => {
+        setPrevComments(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
     getJson("getalltabs")
       .then((response) => {
         setAllTabs(response);
@@ -91,13 +111,6 @@ export const updateApp = (setAllTabs, setSubmission, setPrevComments) => {
     getJson("getsubmission")
       .then((response) => {
         setSubmission(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    getJson("prevcomments")
-      .then((response) => {
-        setPrevComments(response);
       })
       .catch((err) => {
         console.log(err);
@@ -229,6 +242,38 @@ export const newComment = async (
           parseInt((window.innerWidth / 10) * 8) //80 VW (WIDTH)
         // "&level=" +
         // levelSelectedId
+      )
+      .then((response) => {
+        updateApp(setAllTabs, setSubmission);
+      });
+  } catch (error) {
+    console.error("Error fetching data:");
+    console.error(error);
+  }
+};
+
+export const newRecorrection = async (
+  infoToAdd,
+  comment = "",
+  motive,
+  level,
+  setAllTabs,
+  setSubmission
+) => {
+  try {
+    console.log(infoToAdd);
+    axios
+      .get(
+        emarking +
+          "?ids=" +
+          ids +
+          "&action=addregrade" +
+          "&comment=" +
+          comment +
+          "&motive=" +
+          motive +
+          "&level=" +
+          level
       )
       .then((response) => {
         updateApp(setAllTabs, setSubmission);

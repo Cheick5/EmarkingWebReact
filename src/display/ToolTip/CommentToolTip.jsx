@@ -34,7 +34,7 @@ const CommentToolTip = ({
       style={{
         left: `${posx * 100}%`,
         top: `${posy * 100}%`,
-        // translate: "10px 15px",
+        translate: "20px",
       }}
     >
       {/* This div is here to make the border a little bit bigger */}

@@ -9,10 +9,12 @@ import AddMarkModal from "../AddEdit/AddMarkModal.jsx";
 import AddCommentModal from "../AddEdit/AddCommentModal.jsx";
 import Pins from "./Pins.jsx";
 import { handlePhotoClick } from "./Functions.jsx";
+import AddRecorrection from "../AddEdit/AddRecorrection.jsx";
 
 const Photos = () => {
   const { allTabs, activeMarkIcon } = useContext(Context);
   const [showEdit, setShowEdit] = useState(false);
+  const [showRecorrectionAdd, setShowRecorrectionAdd] = useState(false);
   const [showEditComment, setShowEditComment] = useState(false);
   const [showAddMark, setShowAddMark] = useState(false);
   const [showCommentAdd, setShowCommentAdd] = useState(false);
@@ -49,6 +51,13 @@ const Photos = () => {
         showAddMark={showAddMark}
         setShowAddMark={setShowAddMark}
         infoToAdd={infoToAdd}
+      />
+      <AddRecorrection
+        showAddRecorrection = {showRecorrectionAdd}
+        setShowAddRecorrection = {setShowRecorrectionAdd}
+        pin={pin}
+        setPin={setPin}
+      
       />
 
       {/* Hovered one: {hover} */}

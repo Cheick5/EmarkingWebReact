@@ -30,22 +30,42 @@ const Pins = ({
   const [oldPos, setOldPos] = useState({ x: 0, y: 0 });
   const [newPos, setNewPos] = useState({ x: 0, y: 0 });
 
-  const { setSubmission, setAllTabs, activeMarkIcon } = useContext(Context);
+  const { setSubmission, setAllTabs, ping } = useContext(Context);
 
   const handleMouseOver = (e, object) => {
-    e.target.style.cursor = "all-scroll"; // Change cursor to pointer
-    e.target.style.border = "2px dotted black";
+    // Function to check if an element or any of its ancestors has the classname "InvisDiv"
+    const hasInvisDivParent = (element) => {
+      while (element) {
+        if (element.classList && element.classList.contains("InvisDiv")) {
+          return true;
+        }
+        element = element.parentElement;
+      }
+      return false;
+    };
+
+    // Check if the target element or its parents have the classname "InvisDiv"
+    if (!hasInvisDivParent(e.target)) {
+      // Change cursor and border style if neither the target nor its parents have "InvisDiv"
+      e.target.style.cursor = "all-scroll";
+      e.target.style.border = "2px dotted black";
+    }
+
     const divs = document.getElementsByClassName("criterion_wrapper");
     for (let i = 0; i < divs.length; i++) {
       if (divs[i].id == comment.criterionid) {
         divs[i].style.backgroundColor = "orange";
       }
     }
+
     setPin(comment);
     setPhotoId(photoId);
     setHover(e.target.id);
 
-    if (comment.criterionid != 2) {
+    if (
+      comment.criterionid != 2 &&
+      !window.matchMedia("(max-width: 768px)").matches
+    ) {
       setShowToolTip(true);
     }
   };
@@ -68,6 +88,7 @@ const Pins = ({
     // console.log(comment)
   };
   const handleDragStart = (e, object) => {
+    setShowToolTip(false);
     setOldPos({ x: e.clientX, y: e.clientY });
   };
   const handleDrag = (e, object) => {
@@ -88,13 +109,21 @@ const Pins = ({
     const diffY = newY - oldPos.y; //Positivo -> abajo, negativo -> arriba
 
     if (Math.abs(diffX) < 20 && Math.abs(diffY) < 20) {
-      if (comment.format == 2) {
-        setShow(true);
+      if (ping.data.values.readonly == false) {
+        if (comment.format == 2) {
+          console.log("Hola1");
+          setShow(true);
+        } else {
+          console.log("Hola2");
+          setShowEditComment(true);
+        }
       } else {
-        setShowEditComment(true);
+        // If the user only can read, we display the recorrection modal
+        console.log("Hola3");
       }
     } else {
       //TODO: Set the diference in positions insteead of getting the pos
+      console.log("Hola4");
       setNewPos({
         x: comment.posx * ((window.innerWidth / 10) * 6) + diffX,
         y: comment.posy * ((window.innerWidth / 10) * 8) + diffY,
@@ -135,7 +164,10 @@ const Pins = ({
   };
 
   return (
-    <div>
+    <div className="PinAndToolTipContainer">
+      {/* // <div style={{ height: "100%", */}
+      {/* //   position: "absolute", */}
+      {/* //   width: "100%"}}> */}
       <Draggable
         bounds="parent"
         onStart={(e) => handleDragStart(e, comment)}
@@ -152,7 +184,7 @@ const Pins = ({
           }}
           onMouseOver={(e) => handleMouseOver(e, comment)}
           onMouseOutCapture={(e) => handleMouseOut(e, comment.criterionid)}
-          onClick={(e) => handleMouseClick(e, comment)}
+          // onClick={(e) => handleMouseClick(e, comment)}
         >
           <div style={{ pointerEvents: "none" }}>
             <FontAwesomeIcon
@@ -164,7 +196,7 @@ const Pins = ({
       </Draggable>
       <CommentToolTip
         comment={comment.rawtext}
-        author = {comment.markername}
+        author={comment.markername}
         posx={comment.posx}
         posy={comment.posy}
         pageno={comment.pageno}

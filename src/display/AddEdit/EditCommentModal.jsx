@@ -7,7 +7,6 @@ import { useContext } from "react";
 import "../Styles/styles_modal.css";
 import { Context } from "../Body/Body.jsx";
 import axios from "axios";
-import { getJson, updateApp } from "../Body/Functions.jsx";
 import { updatePin } from "../Body/Functions.jsx";
 
 // This component is the same as AddModal, but it has changes in the requests and in the parameters.
